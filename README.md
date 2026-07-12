@@ -29,17 +29,17 @@ Before modeling, analyzed the data to understand the imbalance and feature patte
 
 **Class Imbalance:**
 
-![Class Imbalance](images/class_imbalance.png)
+![Class Imbalance](class_imbalance.png)
 
 **Transaction Amount by Class:**
 
-![Amount Distribution](images/amount_distribution.png)
+![Amount Distribution](amount_distribution.png)
 
 *Key finding: Fraud transactions have a median amount of just $9.25 — fraudsters make small transactions to avoid detection.*
 
 **Feature Correlations with Fraud:**
 
-![Correlation](images/correlation.png)
+![Correlation](correlation.png)
 
 *V17, V14, V12 are most negatively correlated with fraud. V11, V4, V2 are most positively correlated.*
 
@@ -66,7 +66,7 @@ Tested 5 approaches across 2 imbalance-handling strategies:
 
 ### Model Comparison
 
-![Model Comparison](images/model_comparison.png)
+![Model Comparison](model_comparison.png)
 
 | Model | PR-AUC | Recall | Precision |
 |---|---|---|---|
@@ -91,7 +91,7 @@ Tested 5 approaches across 2 imbalance-handling strategies:
 
 ### Feature Importance
 
-![Permutation Importance](images/permutation_importance.png)
+![Permutation Importance](permutation_importance.png)
 
 V4 was the most important feature by far — shuffling it alone dropped PR-AUC by 0.044.
 
