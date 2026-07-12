@@ -22,29 +22,46 @@ Detect fraudulent credit card transactions in a dataset with **0.17% fraud rate*
 
 ---
 
+## Project Structure
+
+```
+credit-card-fraud-detection/
+│
+├── Credit Card Fraud Detection Project.ipynb
+├── requirements.txt
+├── .gitignore
+├── class_imbalance.png
+├── amount_distribution.png
+├── correlation.png
+├── model_comparison.png
+└── permutation_importance.png
+```
+
+---
+
 ## Approach
 
 ### 1. Exploratory Data Analysis
-Before modeling, analyzed the data to understand the imbalance and feature patterns.
 
-**Class Imbalance:**
+Before modeling, analyzed the data to understand class imbalance and feature patterns.
 
-![Class Imbalance](class_imbalance.png)
+**Class Distribution:**
+
+![Class Imbalance](https://raw.githubusercontent.com/Raja-ML-22/credit-card-fraud-detection/main/class_imbalance.png)
 
 **Transaction Amount by Class:**
 
-![Amount Distribution](amount_distribution.png)
+![Amount Distribution](https://raw.githubusercontent.com/Raja-ML-22/credit-card-fraud-detection/main/amount_distribution.png)
 
-*Key finding: Fraud transactions have a median amount of just $9.25 — fraudsters make small transactions to avoid detection.*
+*Key finding: Fraud transactions have a median of just $9.25 — fraudsters make small transactions to avoid detection.*
 
 **Feature Correlations with Fraud:**
 
-![Correlation](correlation.png)
+![Correlation](https://raw.githubusercontent.com/Raja-ML-22/credit-card-fraud-detection/main/correlation.png)
 
-*V17, V14, V12 are most negatively correlated with fraud. V11, V4, V2 are most positively correlated.*
+*V17, V14, V12 most negatively correlated. V11, V4, V2 most positively correlated with fraud.*
 
 ### 2. Models Compared
-Tested 5 approaches across 2 imbalance-handling strategies:
 
 | Model | Imbalance Strategy |
 |---|---|
@@ -55,6 +72,7 @@ Tested 5 approaches across 2 imbalance-handling strategies:
 | Random Forest | SMOTE oversampling |
 
 ### 3. Evaluation Strategy
+
 - Primary metric: **PR-AUC** (not accuracy or ROC-AUC — both misleading on imbalanced data)
 - Hyperparameter tuning: GridSearchCV scoring by `average_precision`
 - Threshold tuning: manually optimized on validation set to maximize F1
@@ -66,7 +84,7 @@ Tested 5 approaches across 2 imbalance-handling strategies:
 
 ### Model Comparison
 
-![Model Comparison](model_comparison.png)
+![Model Comparison](https://raw.githubusercontent.com/Raja-ML-22/credit-card-fraud-detection/main/model_comparison.png)
 
 | Model | PR-AUC | Recall | Precision |
 |---|---|---|---|
@@ -87,22 +105,22 @@ Tested 5 approaches across 2 imbalance-handling strategies:
 | LG Balanced | $180,600 |
 | XGBoost | $200,050 |
 
-> XGBoost had the best PR-AUC but missed 2 more fraud cases than RF Balanced. At $10,000 per missed fraud, that's $20,000 more in losses — making RF Balanced the better business choice despite lower PR-AUC.
+> XGBoost had the best PR-AUC but missed 2 more fraud cases than RF Balanced. At $10,000 per missed fraud, that's $20,000 more in losses — making RF Balanced the better business choice.
 
 ### Feature Importance
 
-![Permutation Importance](permutation_importance.png)
+![Permutation Importance](https://raw.githubusercontent.com/Raja-ML-22/credit-card-fraud-detection/main/permutation_importance.png)
 
-V4 was the most important feature by far — shuffling it alone dropped PR-AUC by 0.044.
+V4 was the most important feature — shuffling it alone dropped PR-AUC by 0.044.
 
 ---
 
 ## Key Insights
 
-1. **Accuracy is useless here** — a model predicting "not fraud" for everything gets 99.83% accuracy
+1. **Accuracy is useless here** — predicting "not fraud" always gets 99.83% accuracy
 2. **PR-AUC beat ROC-AUC** as the honest metric for this imbalance level
-3. **SMOTE didn't help** — class_weight='balanced' performed equally or better for both models
-4. **XGBoost ≠ best model** — highest PR-AUC but highest business cost due to more missed fraud
+3. **SMOTE didn't help** — class_weight='balanced' performed equally or better
+4. **XGBoost ≠ best model** — highest PR-AUC but highest business cost
 5. **Cost-based selection changed the final decision** — metrics alone would have picked XGBoost
 
 ---
@@ -110,37 +128,20 @@ V4 was the most important feature by far — shuffling it alone dropped PR-AUC b
 ## Final Model
 
 **Random Forest (class_weight='balanced_subsample')**
-- PR-AUC: 0.813
-- Recall: 75.7% (catches 3 in 4 fraud cases)
-- Precision: 93.3% (when it flags fraud, it's right 93% of the time)
-- Business cost: $180,200 (lowest among all models)
 
----
-
-## Project Structure
-
-credit-card-fraud-detection/
-├── Credit Card Fraud Detection Project.ipynb
-├── requirements.txt
-├── .gitignore
-├── class_imbalance.png
-├── amount_distribution.png
-├── correlation.png
-├── model_comparison.png
-└── permutation_importance.png
+| Metric | Score |
+|---|---|
+| PR-AUC | 0.813 |
+| Recall | 75.7% |
+| Precision | 93.3% |
+| Business Cost | $180,200 |
 
 ---
 
 ## How to Run
 
 ```bash
-# Install dependencies
 pip install -r requirements.txt
-
-# Download dataset from Kaggle
-# Place creditcard.csv in data/ folder
-
-# Open notebook
 jupyter notebook "Credit Card Fraud Detection Project.ipynb"
 ```
 
@@ -148,4 +149,4 @@ jupyter notebook "Credit Card Fraud Detection Project.ipynb"
 
 ## Tech Stack
 
-Python • Scikit-learn • XGBoost • Imbalanced-learn • Pandas • NumPy • Matplotlib • Seaborn
+`Python` `Scikit-learn` `XGBoost` `Imbalanced-learn` `Pandas` `NumPy` `Matplotlib` `Seaborn`
