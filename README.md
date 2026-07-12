@@ -118,3 +118,34 @@ V4 was the most important feature by far — shuffling it alone dropped PR-AUC b
 ---
 
 ## Project Structure
+
+credit-card-fraud-detection/
+├── Credit Card Fraud Detection Project.ipynb
+├── requirements.txt
+├── .gitignore
+├── class_imbalance.png
+├── amount_distribution.png
+├── correlation.png
+├── model_comparison.png
+└── permutation_importance.png
+
+---
+
+## How to Run
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Download dataset from Kaggle
+# Place creditcard.csv in data/ folder
+
+# Open notebook
+jupyter notebook "Credit Card Fraud Detection Project.ipynb"
+```
+
+---
+
+## Tech Stack
+
+Python • Scikit-learn • XGBoost • Imbalanced-learn • Pandas • NumPy • Matplotlib • Seaborn
